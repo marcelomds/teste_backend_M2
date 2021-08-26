@@ -20,9 +20,9 @@ class CityService
     /**
      * @return mixed
      */
-    public function getAll()
+    public function index()
     {
-      return $this->repository->getAll();
+      return $this->repository->getItems();
     }
 
     /**

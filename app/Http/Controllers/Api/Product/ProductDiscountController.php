@@ -1,55 +1,53 @@
 <?php
 
-namespace App\Http\Controllers\Api\City;
+namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\City\CityStoreRequest;
-use App\Http\Requests\City\CityUpdateRequest;
 use App\Http\Responses\ApiResponse;
-use App\Services\City\CityService;
+use App\Services\Product\ProductDiscountService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-class CityController extends Controller
+class ProductDiscountController extends Controller
 {
-    private CityService $service;
+    private ProductDiscountService $service;
 
     /**
-     * @param CityService $service
+     * @param ProductDiscountService $service
      */
-    public function __construct(CityService $service)
+    public function __construct(ProductDiscountService $service)
     {
         $this->service = $service;
     }
 
-
     /**
      * @return JsonResponse
      *
-     * Listando todas as cidades cadastradas
+     * Listando todos os descontos de produtos
      */
     public function index(): JsonResponse
     {
         try {
-            $cities = $this->service->index();
+            $products = $this->service->index();
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao listar cidades');
+            ApiResponse::error('', 'Erro ao listar descontos');
         }
 
-        return ApiResponse::success($cities);
+        return ApiResponse::success($products);
     }
 
     /**
-     * @param CityStoreRequest $request
+     * @param Request $request
      * @return JsonResponse
      *
-     * Cadastrar uma cidade
+     * Cadastrar um desconto para produto
      */
-    public function store(CityStoreRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         try {
             $this->service->store($request->all());
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao cadastrar cidade');
+            ApiResponse::error('', 'Erro ao cadastrar desconto');
         }
 
         return ApiResponse::success($request->all(), 'Cadastro realizado com sucesso', 201);
@@ -57,17 +55,17 @@ class CityController extends Controller
 
     /**
      * @param int $id
-     * @param CityUpdateRequest $request
+     * @param Request $request
      * @return JsonResponse
      *
-     * Atualizando uma cidade
+     * Atualizando um desconto
      */
-    public function update(int $id, CityUpdateRequest $request): JsonResponse
+    public function update(int $id, Request $request): JsonResponse
     {
         try {
             $this->service->update($id, $request->all());
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao atualizar cidade');
+            ApiResponse::error('', 'Erro ao atualizar desconto');
         }
 
         return ApiResponse::success($request->all(), 'Cadastro atualizado com sucesso', 201);
@@ -77,16 +75,16 @@ class CityController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * Removendo uma cidade
+     * Removendo um produto
      */
     public function delete(int $id): JsonResponse
     {
         try {
             $this->service->delete($id);
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao remover cidade');
+            ApiResponse::error('', 'Erro ao remover desconto');
         }
 
-        return ApiResponse::success(null, 'Cidade removida com sucesso');
+        return ApiResponse::success(null, 'Desconto removido com sucesso');
     }
 }

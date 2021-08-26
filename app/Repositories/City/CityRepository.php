@@ -20,7 +20,7 @@ class CityRepository
     /**
      * @return mixed
      */
-    public function getAll()
+    public function getItems()
     {
         return $this->city
             ->latest()

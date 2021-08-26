@@ -2,8 +2,6 @@
 
 namespace App\Repositories\City;
 
-use App\Http\Responses\ApiResponse;
-use App\Models\City\City;
 use App\Models\City\GroupCity;
 
 class GroupCityRepository
@@ -21,7 +19,7 @@ class GroupCityRepository
     /**
      * @return mixed
      */
-    public function getAll()
+    public function getItems()
     {
         return $this->groupCity
             ->latest()
