@@ -1,19 +1,28 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\City\CityController;
+use App\Http\Controllers\Api\City\GroupCityController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+/**
+ * Rotas - Cidades
+ */
+Route::get('/cities', [CityController::class, 'index']);
+Route::post('/cities', [CityController::class, 'store']);
+Route::put('/city/{id}', [CityController::class, 'update']);
+Route::delete('/city/{id}', [CityController::class, 'delete']);
+
+
+/**
+ * Rotas - Grupo de Cidades
+ */
+Route::get('/group_cities', [GroupCityController::class, 'index']);
+Route::post('/group_cities', [GroupCityController::class, 'store']);
+Route::put('/group_city/{id}', [GroupCityController::class, 'update']);
+Route::delete('/group_city/{id}', [GroupCityController::class, 'delete']);
