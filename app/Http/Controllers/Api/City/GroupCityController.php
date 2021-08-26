@@ -3,54 +3,53 @@
 namespace App\Http\Controllers\Api\City;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\City\CityStoreRequest;
-use App\Http\Requests\City\CityUpdateRequest;
+use App\Http\Requests\City\GroupCityStoreRequest;
+use App\Http\Requests\City\GroupCityUpdateRequest;
 use App\Http\Responses\ApiResponse;
-use App\Services\City\CityService;
+use App\Services\City\GroupCityService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CityController extends Controller
+class GroupCityController extends Controller
 {
-    private CityService $service;
+    private GroupCityService $service;
 
     /**
-     * @param CityService $service
+     * @param GroupCityService $service
      */
-    public function __construct(CityService $service)
+    public function __construct(GroupCityService $service)
     {
         $this->service = $service;
     }
 
-
     /**
      * @return JsonResponse
      *
-     * Listando todas as cidades cadastradas
+     * Listando todos os grupos cidades cadastrados
      */
     public function index(): JsonResponse
     {
         try {
-            $cities = $this->service->getAll();
+            $groupCities = $this->service->getAll();
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao listar cidades');
+            ApiResponse::error('', 'Erro ao listar grupos');
         }
 
-        return ApiResponse::success($cities);
+        return ApiResponse::success($groupCities);
     }
 
     /**
-     * @param CityStoreRequest $request
+     * @param GroupCityStoreRequest $request
      * @return JsonResponse
      *
-     * Cadastrar uma cidade
+     * Cadastrar um grupo de cidade
      */
-    public function store(CityStoreRequest $request): JsonResponse
+    public function store(GroupCityStoreRequest $request): JsonResponse
     {
         try {
             $this->service->store($request->all());
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao cadastrar cidade');
+            ApiResponse::error('', 'Erro ao cadastrar grupo de cidade');
         }
 
         return ApiResponse::success($request->all(), 'Cadastro realizado com sucesso', 201);
@@ -58,12 +57,12 @@ class CityController extends Controller
 
     /**
      * @param int $id
-     * @param CityUpdateRequest $request
+     * @param GroupCityUpdateRequest $request
      * @return JsonResponse
      *
-     * Atualizando uma cidade
+     * Atualizando um grupo de cidade
      */
-    public function update(int $id, CityUpdateRequest $request): JsonResponse
+    public function update(int $id, GroupCityUpdateRequest $request): JsonResponse
     {
         try {
             $this->service->update($id, $request->all());
@@ -78,16 +77,16 @@ class CityController extends Controller
      * @param int $id
      * @return JsonResponse
      *
-     * Removendo uma cidade
+     * Removendo um grupo de cidade
      */
     public function delete(int $id): JsonResponse
     {
         try {
             $this->service->delete($id);
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao remover cidade');
+            ApiResponse::error('', 'Erro ao remover grupo de cidade');
         }
 
-        return ApiResponse::success(null, 'Cidade removida com sucesso');
+        return ApiResponse::success(null, 'Grupo de cidade removido com sucesso');
     }
 }

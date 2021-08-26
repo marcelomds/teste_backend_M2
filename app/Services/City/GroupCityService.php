@@ -2,17 +2,17 @@
 
 namespace App\Services\City;
 
-use App\Repositories\City\CityRepository;
+use App\Repositories\City\GroupCityRepository;
 
 
-class CityService
+class GroupCityService
 {
-    private CityRepository $repository;
+    private GroupCityRepository $repository;
 
     /**
-     * @param CityRepository $repository
+     * @param GroupCityRepository $repository
      */
-    public function __construct(CityRepository $repository)
+    public function __construct(GroupCityRepository $repository)
     {
         $this->repository = $repository;
     }

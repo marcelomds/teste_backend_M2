@@ -2,19 +2,20 @@
 
 namespace App\Repositories\City;
 
+use App\Http\Responses\ApiResponse;
 use App\Models\City\City;
+use App\Models\City\GroupCity;
 
-class CityRepository
+class GroupCityRepository
 {
-
-    private City $city;
+    private GroupCity $groupCity;
 
     /**
-     * @param City $city
+     * @param GroupCity $groupCity
      */
-    public function __construct(City $city)
+    public function __construct(GroupCity $groupCity)
     {
-        $this->city = $city;
+        $this->groupCity = $groupCity;
     }
 
     /**
@@ -22,11 +23,10 @@ class CityRepository
      */
     public function getAll()
     {
-        return $this->city
+        return $this->groupCity
             ->latest()
-            ->with(['groupCity' => function ($query) {
-                $query->select('id', 'name');
-        }])->get();
+            ->with('cities')
+            ->get();
     }
 
     /**
@@ -35,7 +35,7 @@ class CityRepository
      */
     public function storeItem(array $request)
     {
-        return $this->city->create($request);
+        return $this->groupCity->create($request);
     }
 
     /**
@@ -45,7 +45,7 @@ class CityRepository
      */
     public function updateItem(int $id, array $request)
     {
-        return $this->city->where('id', $id)->update($request);
+        return $this->groupCity->where('id', $id)->update($request);
     }
 
     /**
@@ -54,6 +54,6 @@ class CityRepository
      */
     public function deleteItem(int $id)
     {
-        return $this->city->destroy($id);
+        return $this->groupCity->destroy($id);
     }
 }
