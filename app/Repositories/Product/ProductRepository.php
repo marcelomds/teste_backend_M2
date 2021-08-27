@@ -43,7 +43,11 @@ class ProductRepository
      */
     public function updateItem(int $id, array $request)
     {
-        return $this->product->where('id', $id)->update($request);
+        $item = $this->findItem($id);
+
+        return $this->product
+            ->where('id', $item->id)
+            ->update($request);
     }
 
     /**
@@ -52,6 +56,23 @@ class ProductRepository
      */
     public function deleteItem(int $id)
     {
-        return $this->product->destroy($id);
+        $item = $this->findItem($id);
+
+        return $this->product->destroy($item->id);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    private function findItem(int $id)
+    {
+        $item = $this->product->find($id);
+
+        if (!$item) {
+            throw new \Error("ID inexistente");
+        }
+
+        return $item;
     }
 }

@@ -43,7 +43,11 @@ class GroupCityRepository
      */
     public function updateItem(int $id, array $request)
     {
-        return $this->groupCity->where('id', $id)->update($request);
+        $item = $this->findItem($id);
+
+        return $this->groupCity
+            ->where('id', $item->id)
+            ->update($request);
     }
 
     /**
@@ -52,6 +56,23 @@ class GroupCityRepository
      */
     public function deleteItem(int $id)
     {
-        return $this->groupCity->destroy($id);
+        $item = $this->findItem($id);
+
+        return $this->groupCity->destroy($item->id);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    private function findItem(int $id)
+    {
+        $item = $this->groupCity->find($id);
+
+        if (!$item) {
+            throw new \Error("ID inexistente");
+        }
+
+        return $item;
     }
 }

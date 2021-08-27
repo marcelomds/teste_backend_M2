@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductDicountStoreRequest;
+use App\Http\Requests\Product\ProductDicountUpdateRequest;
 use App\Http\Responses\ApiResponse;
 use App\Services\Product\ProductDiscountService;
 use Illuminate\Http\JsonResponse;
@@ -37,12 +39,12 @@ class ProductDiscountController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ProductDicountStoreRequest $request
      * @return JsonResponse
      *
      * Cadastrar um desconto para produto
      */
-    public function store(Request $request): JsonResponse
+    public function store(ProductDicountStoreRequest $request): JsonResponse
     {
         try {
             $this->service->store($request->all());
@@ -55,12 +57,12 @@ class ProductDiscountController extends Controller
 
     /**
      * @param int $id
-     * @param Request $request
+     * @param ProductDicountUpdateRequest $request
      * @return JsonResponse
      *
      * Atualizando um desconto
      */
-    public function update(int $id, Request $request): JsonResponse
+    public function update(int $id, ProductDicountUpdateRequest $request): JsonResponse
     {
         try {
             $this->service->update($id, $request->all());

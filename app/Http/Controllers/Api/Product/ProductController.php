@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Product\ProductStoreRequest;
 use App\Http\Responses\ApiResponse;
 use App\Services\Product\ProductService;
 use Illuminate\Http\JsonResponse;
@@ -37,12 +38,12 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param ProductStoreRequest $request
      * @return JsonResponse
      *
      * Cadastrar um produto
      */
-    public function store(Request $request): JsonResponse
+    public function store(ProductStoreRequest $request): JsonResponse
     {
         try {
             $this->service->store($request->all());

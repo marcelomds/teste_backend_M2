@@ -45,7 +45,11 @@ class CityRepository
      */
     public function updateItem(int $id, array $request)
     {
-        return $this->city->where('id', $id)->update($request);
+        $item = $this->findItem($id);
+
+        return $this->city
+            ->where('id', $item->id)
+            ->update($request);
     }
 
     /**
@@ -54,6 +58,23 @@ class CityRepository
      */
     public function deleteItem(int $id)
     {
-        return $this->city->destroy($id);
+        $item = $this->findItem($id);
+
+        return $this->city->destroy($item->id);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    private function findItem(int $id)
+    {
+        $item = $this->city->find($id);
+
+        if (!$item) {
+            throw new \Error("ID inexistente");
+        }
+
+        return $item;
     }
 }
