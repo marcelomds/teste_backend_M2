@@ -8,7 +8,6 @@ use App\Http\Requests\City\GroupCityUpdateRequest;
 use App\Http\Responses\ApiResponse;
 use App\Services\City\GroupCityService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class GroupCityController extends Controller
 {
@@ -30,7 +29,7 @@ class GroupCityController extends Controller
     public function index(): JsonResponse
     {
         try {
-            $groupCities = $this->service->getAll();
+            $groupCities = $this->service->index();
         } catch (\Exception $e) {
             ApiResponse::error('', 'Erro ao listar grupos');
         }
@@ -67,7 +66,7 @@ class GroupCityController extends Controller
         try {
             $this->service->update($id, $request->all());
         } catch (\Exception $e) {
-            ApiResponse::error('', 'Erro ao atualizar cidade');
+            ApiResponse::error('', 'Erro ao atualizar grupo de cidade');
         }
 
         return ApiResponse::success($request->all(), 'Cadastro atualizado com sucesso', 201);

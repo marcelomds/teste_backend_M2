@@ -1,18 +1,17 @@
 <?php
 
-namespace App\Services\City;
+namespace App\Services\Product;
 
-use App\Repositories\City\GroupCityRepository;
+use App\Repositories\Product\ProductRepository;
 
-
-class GroupCityService
+class ProductService
 {
-    private GroupCityRepository $repository;
+    private ProductRepository $repository;
 
     /**
-     * @param GroupCityRepository $repository
+     * @param ProductRepository $repository
      */
-    public function __construct(GroupCityRepository $repository)
+    public function __construct(ProductRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -22,7 +21,7 @@ class GroupCityService
      */
     public function index()
     {
-      return $this->repository->getItems();
+        return $this->repository->getItems();
     }
 
     /**

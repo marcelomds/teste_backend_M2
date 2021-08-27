@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Repositories\City;
+namespace App\Repositories\Product;
 
-use App\Models\City\City;
+use App\Models\Product\ProductDiscount;
 
-class CityRepository
+class ProductDiscountRepository
 {
-
-    private City $city;
+    private ProductDiscount $productDiscount;
 
     /**
-     * @param City $city
+     * @param ProductDiscount $productDiscount
      */
-    public function __construct(City $city)
+    public function __construct(ProductDiscount $productDiscount)
     {
-        $this->city = $city;
+        $this->productDiscount = $productDiscount;
     }
 
     /**
@@ -22,11 +21,7 @@ class CityRepository
      */
     public function getItems()
     {
-        return $this->city
-            ->latest()
-            ->with(['groupCity' => function ($query) {
-                $query->select('id', 'name');
-        }])->get();
+        return $this->productDiscount->latest()->get();
     }
 
     /**
@@ -35,7 +30,7 @@ class CityRepository
      */
     public function storeItem(array $request)
     {
-        return $this->city->create($request);
+        return $this->productDiscount->create($request);
     }
 
     /**
@@ -47,7 +42,7 @@ class CityRepository
     {
         $item = $this->findItem($id);
 
-        return $this->city
+        return $this->productDiscount
             ->where('id', $item->id)
             ->update($request);
     }
@@ -60,7 +55,7 @@ class CityRepository
     {
         $item = $this->findItem($id);
 
-        return $this->city->destroy($item->id);
+        return $this->productDiscount->destroy($item->id);
     }
 
     /**
@@ -69,7 +64,7 @@ class CityRepository
      */
     private function findItem(int $id)
     {
-        $item = $this->city->find($id);
+        $item = $this->productDiscount->find($id);
 
         if (!$item) {
             throw new \Error("ID inexistente");
