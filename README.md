@@ -37,3 +37,6 @@ $ php artisan migrate #antes de rodar este comando verifique sua configuracao co
 $ php artisan db:seed #para gerar os seeders, dados de teste
 $ php artisan serve
 ```
+
+![image](https://user-images.githubusercontent.com/54554831/131351008-37a4b071-fe0e-47e3-b538-29db307053cf.png)
+
