@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Campaign\CampaignController;
 use App\Http\Controllers\Api\City\CityController;
 use App\Http\Controllers\Api\City\GroupCityController;
 use App\Http\Controllers\Api\Product\ProductController;
@@ -44,3 +45,12 @@ Route::get('/products_discount', [ProductDiscountController::class, 'index']);
 Route::post('/products_discount', [ProductDiscountController::class, 'store']);
 Route::put('/product_discount/{id}', [ProductDiscountController::class, 'update']);
 Route::delete('/product_discount/{id}', [ProductDiscountController::class, 'delete']);
+
+
+/**
+ * Rotas - Campanhas
+ */
+Route::get('/campaigns', [CampaignController::class, 'index']);
+Route::post('/campaigns', [CampaignController::class, 'store']);
+Route::put('/campaign/{id}', [CampaignController::class, 'update']);
+Route::delete('/campaign/{id}', [CampaignController::class, 'delete']);
